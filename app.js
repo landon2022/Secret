@@ -33,7 +33,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB");
+// mongoose.connect("mongodb://localhost:27017/userDB");
+mongoose.connect(process.env.MONGODB_KEY);
 const userSchema = new mongoose.Schema({
     email:String,
     password:String,
@@ -70,7 +71,6 @@ const gStrategy = new GoogleStrategy({
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/secrets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
-    proxy: true
   },
   function(accessToken, refreshToken, profile, cb) {
     console.log("testpoint1");
